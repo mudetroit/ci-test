@@ -7,4 +7,4 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Echo
-              run: echo "it puts the foo in the bar"
+              run: echo ${{ github.event.pull_request }}
