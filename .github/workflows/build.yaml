@@ -1,0 +1,10 @@
+name: Build
+on: [pull_request]
+
+jobs:
+    build:
+        name: Build packages
+        runs-on: ubuntu-latest
+        steps:
+            - name: Echo
+              run: echo "it puts the foo in the bar"
