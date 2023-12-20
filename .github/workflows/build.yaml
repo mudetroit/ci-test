@@ -1,13 +1,28 @@
-name: Build
+name: Release
 on: [pull_request]
 
-env:
-    PR: ${{ toJson(github.event.pull_request) }}
-
 jobs:
-    build:
-        name: Build packages
+    changeset:
         runs-on: ubuntu-latest
+        name: changeset
+        env:
+            TURBO_RUN_FILTER: ${{ github.event_name == 'pull_request' && '...[origin/main]' || '...[HEAD^]' }}
+        outputs:
+            packages: ${{ steps.changeset.outputs.result }}
         steps:
-            - name: Echo
-              run: echo ${{ env.PR }}
+            - id: changeset
+              run: |
+                content='["docs", "web"]''
+                echo "::set-output name=result::$content"
+    
+    build:
+        runs-on: ubuntu-latest
+        name: ${{ matrix }} build
+        if: needs.changeset.outputs.packages != ''
+        needs: ["changeset"]
+        strategy:
+            fail-fast: false
+            matrix:
+                include: ${{fromJson(needs.changeset.outputs.packages)}}
+        steps:
+            - run: echo ${{matrix}}
