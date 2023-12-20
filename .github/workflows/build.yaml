@@ -12,12 +12,12 @@ jobs:
         steps:
             - id: changeset
               run: |
-                content='["docs", "web"]''
+                content='[{app: "docs"}, {app:"web"}]''
                 echo "::set-output name=result::$content"
     
     build:
         runs-on: ubuntu-latest
-        name: ${{ matrix }} build
+        name: ${{ matrix.app }} build
         if: needs.changeset.outputs.packages != ''
         needs: ["changeset"]
         strategy:
@@ -25,4 +25,4 @@ jobs:
             matrix:
                 include: ${{fromJson(needs.changeset.outputs.packages)}}
         steps:
-            - run: echo ${{matrix}}
+            - run: echo "${{matrix.app}}"
