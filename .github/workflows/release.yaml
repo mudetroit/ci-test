@@ -12,8 +12,8 @@ jobs:
         steps:
             - id: changeset
               run: |
-                pwd
-                content=`node ../scripts/find-changesets.js`
+                ls
+                content=`node ./scripts/find-changesets.js`
                 echo "::set-output name=result::$content"
     
     build:
