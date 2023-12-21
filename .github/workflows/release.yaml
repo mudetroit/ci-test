@@ -13,7 +13,7 @@ jobs:
             - id: changeset
               run: |
                 ls
-                content=`node ./scripts/find-changesets.js`
+                content=`node ${{ github.action_path }}/scripts/find-changesets.js`
                 echo "::set-output name=result::$content"
     
     build:
