@@ -12,7 +12,7 @@ jobs:
         steps:
             - id: changeset
               run: |
-                content='[{app: "docs"}, {app:"web"}]'
+                content=`node ../scripts/find-changesets.js`
                 echo "::set-output name=result::$content"
     
     build:
