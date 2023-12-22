@@ -16,12 +16,12 @@ jobs:
     
     build:
         runs-on: ubuntu-latest
-        name: ${{ matrix.app }} build
+        name: build
         if: needs.changeset.outputs.packages != ''
         needs: ["changeset"]
-        strategy:
-            fail-fast: false
-            matrix:
-                include: ${{fromJson(needs.changeset.outputs.packages)}}
+        # strategy:
+        #     fail-fast: false
+        #     matrix:
+        #         include: ${{fromJson(needs.changeset.outputs.packages)}}
         steps:
-            - run: echo "${{matrix.app}}"
+            - run: echo "${{needs.changeset.outputs.packages}}"
