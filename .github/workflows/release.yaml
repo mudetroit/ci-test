@@ -12,7 +12,7 @@ jobs:
         steps:
             - id: changeset
               run: |
-                echo "::set-output name=result::$(./scripts/find-changesets.js)"
+                echo "result=$(./scripts/find-changesets.js)" >> $GITHUB_OUTPUT
     
     build:
         runs-on: ubuntu-latest
