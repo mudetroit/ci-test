@@ -12,7 +12,6 @@ jobs:
         steps:
             - id: changeset
               run: |
-                ls
                 content=`node ${{ github.action_path }}/scripts/find-changesets.js`
                 echo "::set-output name=result::$content"
     
