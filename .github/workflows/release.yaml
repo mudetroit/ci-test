@@ -12,7 +12,7 @@ jobs:
         steps:
             - id: changeset
               run: |
-                node ./.github/scripts/find-changesets.js
+                content=$(node ./.github/scripts/find-changesets.js)
                 echo "::set-output name=result::$content"
     
     # build:
