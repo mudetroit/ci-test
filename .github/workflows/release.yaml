@@ -17,11 +17,10 @@ jobs:
     build:
         runs-on: ubuntu-latest
         name: build
-        if: needs.changeset.outputs.packages != ''
         needs: ["changeset"]
         # strategy:
         #     fail-fast: false
         #     matrix:
         #         include: ${{fromJson(needs.changeset.outputs.packages)}}
         steps:
-            - run: echo "${{needs.changeset.outputs.packages}}"
+            - run: echo "packages ${{needs.changeset.outputs.packages}}"
