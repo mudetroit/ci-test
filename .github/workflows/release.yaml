@@ -11,7 +11,7 @@ jobs:
             packages: ${{ steps.changeset.outputs.result }}
         steps:
             - id: changeset
-              run: ./scripts/find-changesets.js
+              run: ./.github/scripts/find-changesets.js
     
     build:
         runs-on: ubuntu-latest
