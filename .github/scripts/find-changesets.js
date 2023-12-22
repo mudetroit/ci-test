@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const {execSync} = require('child_process');
 
 const output = JSON.parse(execSync('pnpm turbo run build --dry-run=json --since=main'))

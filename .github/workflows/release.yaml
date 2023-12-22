@@ -12,17 +12,16 @@ jobs:
         steps:
             - id: changeset
               run: |
-                content=$(node ./.github/scripts/find-changesets.js)
-                echo "::set-output name=result::$content"
+                echo "::set-output name=result::$(./scripts/find-changesets.js)"
     
-    # build:
-    #     runs-on: ubuntu-latest
-    #     name: ${{ matrix.app }} build
-    #     if: needs.changeset.outputs.packages != ''
-    #     needs: ["changeset"]
-    #     strategy:
-    #         fail-fast: false
-    #         matrix:
-    #             include: ${{fromJson(needs.changeset.outputs.packages)}}
-    #     steps:
-    #         - run: echo "${{matrix.app}}"
+    build:
+        runs-on: ubuntu-latest
+        name: ${{ matrix.app }} build
+        if: needs.changeset.outputs.packages != ''
+        needs: ["changeset"]
+        strategy:
+            fail-fast: false
+            matrix:
+                include: ${{fromJson(needs.changeset.outputs.packages)}}
+        steps:
+            - run: echo "${{matrix.app}}"
