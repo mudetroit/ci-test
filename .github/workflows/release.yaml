@@ -5,13 +5,16 @@ jobs:
     changeset:
         runs-on: ubuntu-latest
         name: changeset
+        defaults:
+            run:
+              working-directory: ./scripts
         env:
             TURBO_RUN_FILTER: ${{ github.event_name == 'pull_request' && '...[origin/main]' || '...[HEAD^]' }}
         outputs:
             packages: ${{ steps.changeset.outputs.result }}
         steps:
             - id: changeset
-              run: ./.github/scripts/find-changesets.js
+              run: ./find-changesets.js
     
     build:
         runs-on: ubuntu-latest
