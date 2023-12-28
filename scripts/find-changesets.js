@@ -1,6 +1,5 @@
-const {execSync} = require('child_process');
-const fs = require('fs');
-const os = require ('os')
+#!/usr/bin/env node
+const {execSync} = require('child_process')
 
 const output = JSON.parse(execSync('pnpm turbo run build --dry-run=json --since=main'))
 const apps = output.packages
@@ -16,6 +15,4 @@ const apps = output.packages
     })
     .map((app) => ({app}))
 
-fs.appendFileSync(process.env.GITHUB_STATE, `processID=12345${os.EOL}`, {
-  encoding: 'utf8'
-})
+console.log(JSON.stringify(apps))

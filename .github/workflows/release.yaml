@@ -14,7 +14,9 @@ jobs:
             packages: ${{ steps.changeset.outputs.result }}
         steps:
             - id: changeset
-              run: node ./find-changesets.js
+              run: content = ./find-changesets.js
+            - name: Set output
+              run: echo "result=$content" >> $GITHUB_OUTPUT
     
     build:
         runs-on: ubuntu-latest
