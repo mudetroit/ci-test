@@ -5,17 +5,16 @@ jobs:
     changeset:
         runs-on: ubuntu-latest
         name: changeset
-        defaults:
-            run:
-              working-directory: ./scripts
         env:
             TURBO_RUN_FILTER: ${{ github.event_name == 'pull_request' && '...[origin/main]' || '...[HEAD^]' }}
         outputs:
             packages: ${{ steps.changeset.outputs.result }}
         steps:
-            - name: Determine changed apps
+            - name: XDTesting Print Directory Structure
+              uses: FiorelaCiroku/XDTesting-Print-Directory-Structure@v1.0.2
+            - name: Determine changes apps
               run: |
-                content=./find-changesets.js
+                content=./scripts/find-changesets.js
                 echo $content
                 echo "result=$content" >> $GITHUB_OUTPUT
     
