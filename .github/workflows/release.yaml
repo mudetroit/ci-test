@@ -15,10 +15,10 @@ jobs:
         steps:
             - name: XDTesting Print Directory Structure
               uses: FiorelaCiroku/XDTesting-Print-Directory-Structure@v1.0.2
-            - id: changeset
-              run: content = ./find-changesets.js
             - name: Set output
-              run: echo "result=$content" >> $GITHUB_OUTPUT
+              run: |
+                content=./find-changesets.js
+                echo "result=$content" >> $GITHUB_OUTPUT
     
     build:
         runs-on: ubuntu-latest
