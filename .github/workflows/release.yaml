@@ -13,6 +13,8 @@ jobs:
         outputs:
             packages: ${{ steps.changeset.outputs.result }}
         steps:
+            - name: XDTesting Print Directory Structure
+              uses: FiorelaCiroku/XDTesting-Print-Directory-Structure@v1.0.2
             - id: changeset
               run: content = ./find-changesets.js
             - name: Set output
