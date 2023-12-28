@@ -1,7 +1,6 @@
-#!/usr/bin/env node
-import {execSync} from 'child_process';
-import * as fs from 'fs'
-import * as os from 'os'
+const {execSync} = require('child_process');
+const fs = require('fs');
+const os = require ('os')
 
 const output = JSON.parse(execSync('pnpm turbo run build --dry-run=json --since=main'))
 const apps = output.packages
