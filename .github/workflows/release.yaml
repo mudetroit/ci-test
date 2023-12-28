@@ -12,7 +12,11 @@ jobs:
         steps:
             - name: Check out code
               uses: actions/checkout@v3
-            - name: Determine changes apps
+            - name: Install Node.js
+              uses: actions/setup-node@v3
+            - name: Install pnpm
+              uses: pnpm/action-setup@v2
+            - name: Determine changed apps
               id: changeset
               run: |
                 echo "result=$(./scripts/find-changesets.js)" >> $GITHUB_OUTPUT
