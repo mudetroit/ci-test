@@ -7,7 +7,7 @@ jobs:
         name: changeset
         defaults:
             run:
-              working-directory: .github/scripts
+              working-directory: ./scripts
         env:
             TURBO_RUN_FILTER: ${{ github.event_name == 'pull_request' && '...[origin/main]' || '...[HEAD^]' }}
         outputs:
