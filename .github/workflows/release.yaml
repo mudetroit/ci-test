@@ -15,9 +15,7 @@ jobs:
             - name: Determine changes apps
               id: changeset
               run: |
-                content=./scripts/find-changesets.js
-                echo $content
-                echo "result=$content" >> $GITHUB_OUTPUT
+                echo "result=$(./scripts/find-changesets.js)" >> $GITHUB_OUTPUT
     
     build:
         runs-on: ubuntu-latest
