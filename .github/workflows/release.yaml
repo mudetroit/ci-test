@@ -27,7 +27,7 @@ jobs:
               id: changeset
               run: |
                 output=$(./scripts/find-changesets.js)
-                echo "result=$ouput" >> $GITHUB_OUTPUT
+                echo "result=$output" >> $GITHUB_OUTPUT
     
     build:
         runs-on: ubuntu-latest
