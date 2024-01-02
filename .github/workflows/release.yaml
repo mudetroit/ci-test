@@ -1,0 +1,55 @@
+name: CD
+on: [pull_request]
+
+jobs:
+    changeset:
+        runs-on: ubuntu-latest
+        name: changeset
+        env:
+            TURBO_RUN_FILTER: ${{ github.event_name == 'pull_request' && '...[origin/main]' || '...[HEAD^]' }}
+        outputs:
+            packages: ${{ steps.changeset.outputs.result }}
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
+            - name: Install Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: 20
+            - uses: pnpm/action-setup@v2
+              name: Install pnpm
+              id: pnpm-install
+              with:
+                run_install: false
+            - name: Determine changed apps
+              id: changeset
+              run: |
+                output=$(./scripts/find-changesets.js)
+                echo "result=$output" >> $GITHUB_OUTPUT
+    
+    build:
+        runs-on: ubuntu-latest
+        name: build
+        needs: ["changeset"]
+        strategy:
+            fail-fast: false
+            matrix:
+                include: ${{fromJson(needs.changeset.outputs.packages)}}
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v3
+              with:
+                fetch-depth: 2
+            - name: Install Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: 20
+            - uses: pnpm/action-setup@v2
+              name: Install pnpm
+              id: pnpm-install
+              with:
+                run_install: false
+            - name: Build
+              run: pnpx turbo run build --filter=${{ matrix.app }}
