@@ -13,6 +13,9 @@ const apps = output.packages
     
         return task.directory.startsWith('apps/')
     })
-    .map((app) => ({app}))
+    .map((app) => {
+        const task = output.tasks.find((task) => task.package === app)
+        return {app, directory: task.directory}
+    })
 
 console.log(JSON.stringify(apps))
