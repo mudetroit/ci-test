@@ -19,8 +19,6 @@ try {
         const task = output.tasks.find((task) => task.package === app)
         return {app, directory: task.directory}
     })
-    
-    throw new Error('foo')
 
     console.log(JSON.stringify(apps))
 } catch(e) {
